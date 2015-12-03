@@ -51,6 +51,7 @@ function printHelp() {
         + "Environment variables with the GitHub username and personal access token (NOT your master password) for API calls:\n"
         + "\tGH_USERNAME=<username>\n".grey
         + "\tGH_PASSWORD=<personal access token>\n".grey
+        + "\tGH_HOST=<github host, for those using GitHub Enterprise>\n".grey
         + "Create a personal access token for sprinter.js at https://github.com/settings/applications -> 'Generate token' with 'repo', 'public_repo', and 'repo:status' checked.\n"
         + "\nUSAGE\n".underline
         + "    sprinter <command> <cmd-options> --repos=org/repo,org2/repo2\n".yellow
@@ -138,6 +139,7 @@ function processArgs(args) {
 function exitIfMissingGitHubCreds() {
     githubUsername = process.env['GH_USERNAME'];
     githubPassword = process.env['GH_PASSWORD'];
+    githubHost     = null == process.env['GH_HOST'] ? 'api.github.com' : process.env['GH_HOST'];
     if (! githubUsername || ! githubPassword) {
         handleError('You must set your GitHub credentials into the '
                     + 'environment for this script to run.\n'
@@ -251,6 +253,7 @@ exitIfMissingGitHubCreds();
 sprinter = new Sprinter(
     githubUsername
   , githubPassword
+  , githubHost
   , monitoredRepos
 );
 

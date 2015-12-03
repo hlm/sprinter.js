@@ -204,7 +204,7 @@ function mergeIssuesAndPrs(issues, prs) {
  * @param repoSlugs {string[]} List of repository slug strings to operate upon.
  * @param cache {int} How many seconds to cache fetched results. Default is 0.
  */
-function Sprinter(username, password, repoSlugs, cache) {
+function Sprinter(username, password, host, repoSlugs, cache) {
     if (! username) {
         throw new Error('Missing username.');
     }
@@ -216,10 +216,13 @@ function Sprinter(username, password, repoSlugs, cache) {
     }
     this.username = username;
     this.password = password;
+    this.host = host;
     // Verify required configuration elements.
     this.repos = convertSlugsToObjects(repoSlugs);
     this.gh = new GitHubApi({
-        version: '3.0.0'
+        host: this.host
+      , pathPrefix: "api/v3"
+      , version: '3.0.0'
       , timeout: 5000
     });
     this.gh.authenticate({
