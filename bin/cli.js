@@ -227,7 +227,7 @@ function createMilestonesCli(sprinter, command, commandArgs, kwargs) {
 
 function createLabelsCli(sprinter, command, commandArgs, kwargs) {
     var labels = [];
-    while(commandArgs.length>0) {
+    while(commandArgs.length>1) {
       labels.push({name:commandArgs.shift(), color:commandArgs.shift()});
     };
 
