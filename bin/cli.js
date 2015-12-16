@@ -22,6 +22,7 @@ availableCommands = {
   , createMilestones: createMilestonesCli
   , closeMilestones: closeMilestonesCli
   , updateMilestones: updateMilestonesCli
+  , createLabels: createLabelsCli
 };
 
 availableCommands.listIssues.help       = ("listIssues [--milestone=\"milestone name\"] "
@@ -41,6 +42,8 @@ availableCommands.closeMilestones.help  = "closeMilestones <title>\n\t".cyan
     + "Closes all milestones matching title across all repos.";
 availableCommands.updateMilestones.help  = "updateMilestones <title> <new-title> [due_on]\n\t".cyan
     + "Updates all milestones matching title across all repos.";
+availableCommands.createLabels.help  = "createLabels <name> <color> ...\n\t".cyan
+    + "Creates labels across all repos.";
 availableCommands.printRepos.help  = "printRepos\n\t".cyan
     + "Prints the repositories Sprinter is configured to run against.";
 
@@ -220,6 +223,22 @@ function createMilestonesCli(sprinter, command, commandArgs, kwargs) {
         }
         console.log(milestones);
     });
+}
+
+function createLabelsCli(sprinter, command, commandArgs, kwargs) {
+    var labels = [];
+    while(commandArgs.length>0) {
+      labels.push({name:commandArgs.shift(), color:commandArgs.shift()});
+    };
+
+    console.log(labels)
+
+    /*sprinter.createMilestones(milestone, function(errors, milestones) {
+        if (errors && errors.length) {
+            handleErrors(errors);
+        }
+        console.log(milestones);
+    });*/
 }
 
 function updateMilestonesCli(sprinter, command, commandArgs, kwargs) {
