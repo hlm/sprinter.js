@@ -231,14 +231,12 @@ function createLabelsCli(sprinter, command, commandArgs, kwargs) {
       labels.push({name:commandArgs.shift(), color:commandArgs.shift()});
     };
 
-    console.log(labels)
-
-    /*sprinter.createMilestones(milestone, function(errors, milestones) {
+    sprinter.createLabels(labels, function(errors, labels) {
         if (errors && errors.length) {
             handleErrors(errors);
         }
-        console.log(milestones);
-    });*/
+        console.log(labels);
+    });
 }
 
 function updateMilestonesCli(sprinter, command, commandArgs, kwargs) {
