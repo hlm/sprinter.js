@@ -498,6 +498,9 @@ Sprinter.prototype._getIssueOrPr = function(type, userFilters, mainCallback) {
     };
 
     resultHandler = function(errors, result) {
+        result = _.filter(result, function(issue) {
+            return issue != undefined
+        });
         if (milestone) {
             result = _.filter(result, function(issue) {
                 if (issue.milestone == null) { return false; }
